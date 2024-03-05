@@ -1,20 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { Text, View, FlatList } from "react-native";
 import exercises from "./assets/data/exercises.json";
+import ExcerciseListItem from "./src/components/ExcerciseListItem";
 
 export default function App() {
-  const exercise = exercises[0];
-  // console.log(exercises);
-
   return (
-    <View className=" flex-1 justify-center bg-gray-100 p-3">
-      <View className=" bg-white p-3 rounded-xl gap-1">
-        <Text className=" text-xl font-medium">{exercise.name}</Text>
-        <Text className=" text-gray-600">
-          {exercise.muscle.toUpperCase()} | {exercise.equipment.toUpperCase()}
-        </Text>
-      </View>
-
+    <View className=" flex-1 justify-center bg-gray-100 p-3 mt-20">
+      <FlatList
+        contentContainerStyle={{ gap: 10 }}
+        data={exercises}
+        keyExtractor={(item, index) => item.name + index}
+        renderItem={({ item }) => <ExcerciseListItem item={item} />}
+      />
       <StatusBar />
     </View>
   );
