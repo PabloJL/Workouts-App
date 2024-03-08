@@ -7,6 +7,7 @@ import { gql } from "graphql-request";
 import { useQuery } from "@tanstack/react-query";
 import client from "../graphqlClient";
 import NewSetInput from "../components/NewSetInput";
+import SetsLists from "../components/SetsLists";
 
 const exerciseQuery = gql`
   query exercises($name: String) {
@@ -69,6 +70,9 @@ export default function ExcerciseDetailsScreen() {
       </View>
       <View className=" bg-white p-3 rounded-md">
         <NewSetInput />
+      </View>
+      <View>
+        <SetsLists />
       </View>
     </ScrollView>
   );
