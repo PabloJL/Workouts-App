@@ -69,7 +69,7 @@ export default function ExcerciseDetailsScreen() {
         </Text>
       </View>
       <View className=" bg-white p-3 rounded-md">
-        <NewSetInput />
+        <NewSetInput exerciseName={exercise.name} />
       </View>
       <View>
         <SetsLists />
