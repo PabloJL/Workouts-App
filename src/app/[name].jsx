@@ -44,36 +44,43 @@ export default function ExcerciseDetailsScreen() {
     return <Text>Exercise not found </Text>;
   }
   return (
-    <ScrollView className=" p-3 gap-3">
+    <View className=" p-3 gap-3">
       <Stack.Screen options={{ title: exercise.name }} />
-      <View className=" bg-white p-3 rounded-md">
-        <Text className=" text-xl font-medium">{exercise.name}</Text>
-        <Text className=" text-gray-600">
-          <Text className=" capitalize">
-            {exercise.muscle} | {exercise.equipment}
-          </Text>
-        </Text>
-      </View>
-      <View className=" bg-white p-3 rounded-md">
-        <Text
-          className="text-base leading-5"
-          numberOfLines={isExpanded ? 0 : 4}
-        >
-          {exercise.instructions}
-        </Text>
-        <Text
-          className="self-center p-3 font-semibold text-gray-500"
-          onPress={() => setIsExpanded(!isExpanded)}
-        >
-          {isExpanded ? "See Less" : "See More"}
-        </Text>
-      </View>
-      <View className=" bg-white p-3 rounded-md">
-        <NewSetInput exerciseName={exercise.name} />
-      </View>
+
       <View>
-        <SetsLists />
+        <SetsLists
+          exerciseName={exercise.name}
+          ListHeaderComponent={() => (
+            <View className=" gap-2">
+              <View className=" bg-white p-3 rounded-md">
+                <Text className=" text-xl font-medium">{exercise.name}</Text>
+                <Text className=" text-gray-600">
+                  <Text className=" capitalize">
+                    {exercise.muscle} | {exercise.equipment}
+                  </Text>
+                </Text>
+              </View>
+              <View className=" bg-white p-3 rounded-md">
+                <Text
+                  className="text-base leading-5"
+                  numberOfLines={isExpanded ? 0 : 4}
+                >
+                  {exercise.instructions}
+                </Text>
+                <Text
+                  className="self-center p-3 font-semibold text-gray-500"
+                  onPress={() => setIsExpanded(!isExpanded)}
+                >
+                  {isExpanded ? "See Less" : "See More"}
+                </Text>
+              </View>
+              <View className=" bg-white p-3 rounded-md">
+                <NewSetInput exerciseName={exercise.name} />
+              </View>
+            </View>
+          )}
+        />
       </View>
-    </ScrollView>
+    </View>
   );
 }

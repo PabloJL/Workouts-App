@@ -44,7 +44,7 @@ const NewSetInput = ({ exerciseName }) => {
 
   return (
     <View className="rounded-md flex-row gap-3 items-center">
-      <View className=" flex-row gap-3">
+      <View className=" flex-row gap-2">
         <TextInput
           defaultValue={reps}
           onChangeText={setReps}
@@ -59,6 +59,7 @@ const NewSetInput = ({ exerciseName }) => {
           className=" p-3 flex-1 rounded-md border border-gray-300"
           keyboardType="numeric"
         />
+
         <Button title={isPending ? "Adding" : "Add"} onPress={addSet} />
       </View>
       {isError && <Text className="text-red-500">Failed to add</Text>}

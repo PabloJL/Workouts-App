@@ -4,11 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import client from "../graphqlClient";
 
 const setsQuery = gql`
-  query exercises {
-    sets {
+  query sets($exercise: String!) {
+    sets(exercise: $exercise) {
       documents {
         _id
-        excercise
+        exercise
         reps
         weight
       }
@@ -16,10 +16,10 @@ const setsQuery = gql`
   }
 `;
 
-const SetsLists = () => {
+const SetsLists = ({ ListHeaderComponent, exerciseName }) => {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["sets"],
-    queryFn: () => client.request(setsQuery),
+    queryKey: ["sets", exerciseName],
+    queryFn: () => client.request(setsQuery, { exercise: exerciseName }),
   });
 
   if (isLoading) {
@@ -31,6 +31,8 @@ const SetsLists = () => {
 
   return (
     <FlatList
+      ListHeaderComponent={ListHeaderComponent}
+      showsVerticalScrollIndicator={false}
       data={data?.sets.documents}
       renderItem={({ item }) => (
         <Text className=" bg-white mt-3 p-3 rounded-md overflow-hidden">

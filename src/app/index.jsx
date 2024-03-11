@@ -36,6 +36,7 @@ export default function ExercisesScreen() {
     <View className=" flex-1 justify-center bg-gray-100 p-3">
       <FlatList
         contentContainerStyle={{ gap: 10 }}
+        showsVerticalScrollIndicator={false}
         data={data?.exercises}
         keyExtractor={(item, index) => item.name + index}
         renderItem={({ item }) => <ExcerciseListItem item={item} />}
