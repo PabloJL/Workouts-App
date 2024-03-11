@@ -29,11 +29,15 @@ const NewSetInput = ({ exerciseName }) => {
 
   const addSet = () => {
     console.warn("Add Set:", reps, weight);
-    mutate({
+
+    const newSet = {
       exercise: exerciseName,
       reps: Number.parseInt(reps),
-      weight: Number.parseFloat(weight),
-    });
+    };
+    if (Number.parseFloat(weight)) {
+      newSet.weight = Number.parseFloat(weight);
+    }
+    mutate(newSet);
     setReps("");
     setWeight("");
   };
