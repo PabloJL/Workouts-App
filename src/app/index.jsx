@@ -5,6 +5,7 @@ import ExcerciseListItem from "../components/ExcerciseListItem";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import client from "../graphqlClient";
+import { Redirect } from "expo-router";
 
 const url = "https://yongqing.stepzen.net/api/wistful-sloth/__graphql";
 
@@ -32,16 +33,18 @@ export default function ExercisesScreen() {
     return <Text>Failed to fetch exercises</Text>;
   }
 
-  return (
-    <View className=" flex-1 justify-center bg-gray-100 p-3">
-      <FlatList
-        contentContainerStyle={{ gap: 10 }}
-        showsVerticalScrollIndicator={false}
-        data={data?.exercises}
-        keyExtractor={(item, index) => item.name + index}
-        renderItem={({ item }) => <ExcerciseListItem item={item} />}
-      />
-      <StatusBar />
-    </View>
-  );
+  return <Redirect href={"/auth"}></Redirect>;
+
+  // return (
+  //   <View className=" flex-1 justify-center bg-gray-100 p-3">
+  //     <FlatList
+  //       contentContainerStyle={{ gap: 10 }}
+  //       showsVerticalScrollIndicator={false}
+  //       data={data?.exercises}
+  //       keyExtractor={(item, index) => item.name + index}
+  //       renderItem={({ item }) => <ExcerciseListItem item={item} />}
+  //     />
+  //     <StatusBar />
+  //   </View>
+  // );
 }
