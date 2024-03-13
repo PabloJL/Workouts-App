@@ -61,7 +61,7 @@ export default function ExercisesScreen() {
   const exercises = data?.pages.flatMap((page) => page.exercises);
 
   return (
-    <View className=" flex-1 justify-center bg-gray-100 p-3">
+    <View className=" flex-1 justify-center bg-gray-100">
       <Stack.Screen
         options={{
           headerSearchBarOptions: {
@@ -74,9 +74,7 @@ export default function ExercisesScreen() {
       <FlatList
         contentContainerStyle={{
           gap: 10,
-          flex: 1,
-          padding: 10,
-          paddingTop: 150,
+          padding: 12,
         }}
         showsVerticalScrollIndicator={false}
         data={exercises}
@@ -84,6 +82,7 @@ export default function ExercisesScreen() {
         renderItem={({ item }) => <ExcerciseListItem item={item} />}
         onEndReached={loadMore}
         onEndReachedThreshold={1}
+        contentInsetAdjustmentBehavior="automatic"
       />
       {/* <Button title="Load More" onPress={fetchNextPage} /> */}
       <StatusBar />
