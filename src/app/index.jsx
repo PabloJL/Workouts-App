@@ -5,8 +5,10 @@ import ExcerciseListItem from "../components/ExcerciseListItem";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import client from "../graphqlClient";
-import { Redirect } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import { useAuth } from "../providers/AuthContext";
+import { useState } from "react";
+import { useDebounce } from "@uidotdev/usehooks";
 
 const url = "https://yongqing.stepzen.net/api/wistful-sloth/__graphql";
 
@@ -21,11 +23,16 @@ const exercisesQuery = gql`
 `;
 
 export default function ExercisesScreen() {
+  const [search, setSearch] = useState("");
+  const debounceSearch = useDebounce(search.trim(), 1000);
   const { data, isLoading, error, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ["exercises"],
+      queryKey: ["exercises", debounceSearch],
       queryFn: ({ pageParam }) =>
-        client.request(exercisesQuery, { offset: pageParam }),
+        client.request(exercisesQuery, {
+          offset: pageParam,
+          name: debounceSearch,
+        }),
       initialPageParam: 0,
       getNextPageParam: (lastPage, pages) => pages.length * 10,
     });
@@ -55,8 +62,22 @@ export default function ExercisesScreen() {
 
   return (
     <View className=" flex-1 justify-center bg-gray-100 p-3">
+      <Stack.Screen
+        options={{
+          headerSearchBarOptions: {
+            placeholder: "Search ...",
+            onChangeText: (event) => setSearch(event.nativeEvent.text),
+            hideWhenScrolling: false,
+          },
+        }}
+      />
       <FlatList
-        contentContainerStyle={{ gap: 10 }}
+        contentContainerStyle={{
+          gap: 10,
+          flex: 1,
+          padding: 10,
+          paddingTop: 150,
+        }}
         showsVerticalScrollIndicator={false}
         data={exercises}
         keyExtractor={(item, index) => item.name + index}
