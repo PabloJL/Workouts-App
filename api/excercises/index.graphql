@@ -8,7 +8,7 @@ type Excercise {
 }
 
 type Query {
-  exercises(muscle: String, name: String): [Excercise]
+  exercises(muscle: String, name: String, offset: Int): [Excercise]
     @rest(
       endpoint: "https://api.api-ninjas.com/v1/exercises"
       headers: [
