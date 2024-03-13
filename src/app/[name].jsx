@@ -75,10 +75,10 @@ export default function ExcerciseDetailsScreen() {
                   {isExpanded ? "See Less" : "See More"}
                 </Text>
               </View>
-              <View className=" bg-white p-3 rounded-md">
-                <ProgressGraph />
-              </View>
-              <View className=" bg-white p-3 rounded-md">
+              {/* <View className=" bg-white p-3 rounded-md">
+                <ProgressGraph sets={} />
+              </View> */}
+              <View className=" bg-white p-3 rounded-md mb-5">
                 <NewSetInput exerciseName={exercise.name} />
               </View>
             </View>

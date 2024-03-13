@@ -3,6 +3,8 @@ import { GraphQLClient, gql } from "graphql-request";
 import { useQuery } from "@tanstack/react-query";
 import client from "../graphqlClient";
 import { useAuth } from "../providers/AuthContext";
+import SetListItem from "./SetListItem";
+import ProgressGraph from "./ProgressGraph";
 
 const setsQuery = gql`
   query sets($exercise: String!, $username: String!) {
@@ -34,14 +36,15 @@ const SetsLists = ({ ListHeaderComponent, exerciseName }) => {
 
   return (
     <FlatList
-      ListHeaderComponent={ListHeaderComponent}
+      ListHeaderComponent={() => (
+        <>
+          <ListHeaderComponent />
+          <ProgressGraph sets={data.sets.documents} />
+        </>
+      )}
       showsVerticalScrollIndicator={false}
       data={data?.sets.documents}
-      renderItem={({ item }) => (
-        <Text className=" bg-white mt-3 p-3 rounded-md overflow-hidden">
-          {item.reps} X {item.weight}
-        </Text>
-      )}
+      renderItem={({ item }) => <SetListItem set={item} />}
     />
   );
 };
